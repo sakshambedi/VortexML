@@ -5,6 +5,8 @@ import './upload-button.css';
 import uploadIcon from './upload-icon.svg'; // Make sure you have an appropriate icon or SVG
 
 
+const apiEndpoint = process.env.REACT_APP_VORTEXML_API_ENDPOINT;
+
 const idxtoclass = {
     0: "airplane",
     1: "automobile",
@@ -45,11 +47,10 @@ const UploadButton = () => {
         const formData = new FormData();
         formData.append('file', selectedFile);
 
-        const apiEndpoint = process.env.REACT_APP_API_ENDPOINT;
         console.log('API Endpoint:', apiEndpoint); // Add this line to check if the endpoint is being accessed
 
         try {
-            const response = await fetch(process.env.REACT_APP_VORTEXML_API_ENDPOINT, {
+            const response = await fetch(apiEndpoint, {
                 method: 'POST',
                 body: formData,
             });
