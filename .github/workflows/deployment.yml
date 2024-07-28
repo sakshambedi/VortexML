@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - master # Set this to the branch you want to deploy from
+      - master # or the branch you are using
 
 jobs:
   build:
@@ -24,7 +24,7 @@ jobs:
           npm install
 
       - name: Build the project
-       env:
+        env:
           REACT_APP_VORTEXML_API_ENDPOINT: ${{ secrets.REACT_APP_VORTEXML_API_ENDPOINT }}
         run: |
           cd vortex-ml-frontend
