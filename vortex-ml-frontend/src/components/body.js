@@ -24,9 +24,7 @@ export const Body = () => {
                 <UploadButton />
             </div>
 
-            <div>
-                <h3>Result : </h3>
-            </div>
+          
         </div >
 
 

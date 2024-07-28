@@ -2,8 +2,13 @@
   "devDependencies": {
     "gh-pages": "^6.1.1"
   },
+  "homepage": "https://github.com/sakshambedi/Vortex",
   "scripts": {
-    "predeploy": "cd front-end && npm run build",
-    "deploy": "cd front-end && gh-pages -d build"
+    "start": "cd vortex-ml-frontend && react-scripts start",
+    "build": "cd vortex-ml-frontend && react-scripts build",
+    "test": "cd vortex-ml-frontend && react-scripts test",
+    "eject": "cd vortex-ml-frontend && react-scripts eject",
+    "predeploy": "cd vortex-ml-frontend && npm run build",
+    "deploy": "cd vortex-ml-frontend && gh-pages -d build"
   }
 }
