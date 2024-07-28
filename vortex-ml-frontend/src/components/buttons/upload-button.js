@@ -5,7 +5,7 @@ import './upload-button.css';
 import uploadIcon from './upload-icon.svg'; // Make sure you have an appropriate icon or SVG
 
 
-const apiEndpoint = process.env.REACT_APP_VORTEXML_API_ENDPOINT;
+const apiEndpoint = process.env.REACT_APP_VORTEXML_API_ENDPOINT || 'https://api.vortexapi.me/predict';
 
 const idxtoclass = {
     0: "airplane",
