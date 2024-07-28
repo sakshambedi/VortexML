@@ -8,6 +8,12 @@ import io
 import torch.nn as nn
 
 app =FastAPI()
+
+origins = [
+    "https://sakshambedi.github.io",  # Your GitHub Pages URL
+    "http://localhost:3000",  # For local development
+]
+
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
