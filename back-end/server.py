@@ -1,5 +1,6 @@
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from torchvision.transforms import v2
 from PIL import Image
 import torch
@@ -7,6 +8,16 @@ import io
 import torch.nn as nn
 
 app =FastAPI()
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods
+    allow_headers=["*"],  # Allow all headers
+)
+
+
 class AlexNet(nn.Module):
     def __init__(self, num_classes=10, dropout=0.5):
         super(AlexNet, self).__init__()

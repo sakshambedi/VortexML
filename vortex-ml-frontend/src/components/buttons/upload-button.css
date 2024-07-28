@@ -1,4 +1,11 @@
 /* src/components/UploadButton.css */
+.outer-container{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 100%;
+  padding : 3vh 0vw;
+}
 
 .upload-container {
     display: flex;
@@ -56,3 +63,33 @@
   .browse-button:hover {
     background-color: #e0e0e0;
   }
+
+  .results{
+    padding: 3vh 0vw;
+  }
+
+  .result-title{
+    font-size: 18px;
+    font-weight: 600;
+    font-family:  'Manrope', sans-serif;
+    padding : 0dvh 0px;
+    margin-bottom: -1vh;
+  }
+
+  .response-container > p{
+    padding: 0px 0px;
+    font-style: italic;
+  }
+
+.browse-button:hover {
+    background-color: #0056b3;
+}
+
+.upload-image-text{
+  font-size: 11px;
+  /* font-style: italic; */
+  text-decoration: underline;
+  font-weight: 200;
+
+
+}

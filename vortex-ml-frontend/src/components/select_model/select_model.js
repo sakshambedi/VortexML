@@ -7,7 +7,10 @@ export const SelectModel = () => {
 
     const handleButtonClick = (buttonName) => {
         setSelectedButton(buttonName);
+
     };
+
+
 
     return (
         <div class="select-model">
@@ -35,6 +38,7 @@ export const SelectModel = () => {
                 <p class="model-info-para" >Our version of AlexNet was trained over a dataset of CIFAR10 which contains the following 10 classes: Airplane,  Automobile (excluding trucks and pickup trucks), Bird, Cat, Deer, Dog, Frog, Horse, Ship, Truck (excluding pickup trucks)
                 </p>
             </div>
+
         </div>
     );
 };

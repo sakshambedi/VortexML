@@ -46,7 +46,8 @@ select-model{
 
 .model-info-title{
     font-size: 18px;
-    font-style: normal;
+    font-weight: 600;
+    font-family:  'Manrope', sans-serif;
     font-feature-settings: 'dlig' on;
     color: #0D141C;
     
