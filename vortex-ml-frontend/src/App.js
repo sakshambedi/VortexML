@@ -1,10 +1,10 @@
-
+import React from 'react';
 import Navbar from './components/navbar/navbar';
 import Body from './components/body'
 import Footer from './components/footer/footer'
 
 
-export const Index = () => {
+export const App = () => {
   return (
     <>
       <div class="navbar">
@@ -21,4 +21,4 @@ export const Index = () => {
 };
 
 
-export default Index;
+export default App;
