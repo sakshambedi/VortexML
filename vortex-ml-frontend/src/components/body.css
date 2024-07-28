@@ -1,0 +1,26 @@
+/* This is the common design css language for the website */
+
+.body-main{
+    padding: 4vh 15dvw;
+    
+}
+
+.begin{
+    padding:5dvh 0dvw 2dvh 0dvh;
+}
+
+.body-title{
+    font-weight:600;
+    font-size: 35px;
+    color: #3e3d3d;
+    margin: 0px 0px;
+    
+}
+
+.upload-image-section{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-self: stretch;
+    padding: 5dvh 0px;
+}

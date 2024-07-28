@@ -1,0 +1,71 @@
+/* src/components/Navbar.css */
+
+body {
+    font-family: 'Manrope', sans-serif;
+  }
+  
+  .navbar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fefefe;
+    padding: 20px 20px;
+    width: 100%;
+    border-bottom:1px solid #e0e0e0;
+    
+  }
+  
+  /* This is for the models , datasets and the profile image part*/
+  .navbar-links-main{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding : 0px 4vw;
+  
+  }
+  
+  .navbar-logo{
+    padding : 0px 4vw;
+  }
+  
+  .navbar-logo a {
+    color: #3e3d3d;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bold;
+  }
+  
+  .navbar-links {
+    list-style-type: none;
+    display: flex;
+    margin: 0 20px 0px 0px;
+    padding: 0;
+  }
+  
+  .navbar-links li {
+    margin-right: 15px;
+  }
+  
+  .navbar-links li a {
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 10px;
+    border-radius: 5px;
+  }
+  
+  .navbar-links li a:hover {
+    color: #6FBF73;
+    /* color: #F4A261; */
+  }
+  
+  .navbar-profile{
+    padding: 0px 3em 0px 0px;
+  }
+  
+  .navbar-profile img {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+  }
