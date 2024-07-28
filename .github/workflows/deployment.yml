@@ -24,6 +24,8 @@ jobs:
           npm install
 
       - name: Build the project
+       env:
+          REACT_APP_VORTEXML_API_ENDPOINT: ${{ secrets.REACT_APP_VORTEXML_API_ENDPOINT }}
         run: |
           cd vortex-ml-frontend
           npm run build
