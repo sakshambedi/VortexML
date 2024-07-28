@@ -1,0 +1,7 @@
+back-end/back-end
+back-end/AlexNet*
+front-end/build
+ssh_key/
+layer.zip
+.venv/
+.DS_Store

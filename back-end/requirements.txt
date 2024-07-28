@@ -1,0 +1,14 @@
+# pytorch libs
+torch
+torchvision
+torchview
+
+# Other basic libs
+numpy
+matplotlib
+fastapi 
+uvicorn
+pillow
+
+# Probably dont need the jupyter for deployment
+ipykernel
