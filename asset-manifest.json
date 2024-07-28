@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/sakshambedi/VortexML/static/css/main.9e77bb2b.css",
+    "main.js": "/sakshambedi/VortexML/static/js/main.92a400fd.js",
+    "static/js/453.f726fcfd.chunk.js": "/sakshambedi/VortexML/static/js/453.f726fcfd.chunk.js",
+    "static/media/user-profile-icon.svg": "/sakshambedi/VortexML/static/media/user-profile-icon.b928178ee066f9feb1817f2390001cd9.svg",
+    "static/media/upload-icon.svg": "/sakshambedi/VortexML/static/media/upload-icon.9cef9d69e15e4343e18bf88dc117f4da.svg",
+    "index.html": "/sakshambedi/VortexML/index.html",
+    "main.9e77bb2b.css.map": "/sakshambedi/VortexML/static/css/main.9e77bb2b.css.map",
+    "main.92a400fd.js.map": "/sakshambedi/VortexML/static/js/main.92a400fd.js.map",
+    "453.f726fcfd.chunk.js.map": "/sakshambedi/VortexML/static/js/453.f726fcfd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9e77bb2b.css",
+    "static/js/main.92a400fd.js"
+  ]
+}
