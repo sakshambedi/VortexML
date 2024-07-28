@@ -1,4 +1,4 @@
-name: VortexML
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -19,13 +19,17 @@ jobs:
           node-version: "14"
 
       - name: Install dependencies
-        run: cd vortex-ml-frontend && npm install
+        run: |
+          cd vortex-ml-frontend
+          npm install
 
       - name: Build the project
-        run: cd vortex-ml-frontend && npm run build
+        run: |
+          cd vortex-ml-frontend
+          npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+          publish_dir: ./vortex-ml-frontend/build
