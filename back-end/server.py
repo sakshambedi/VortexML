@@ -1,13 +1,14 @@
-from fastapi import FastAPI, File, UploadFile
-from fastapi.responses import JSONResponse
-from fastapi.middleware.cors import CORSMiddleware
-from torchvision.transforms import v2
-from PIL import Image
-import torch
 import io
-import torch.nn as nn
 
-app =FastAPI()
+import torch
+import torch.nn as nn
+from fastapi import FastAPI, File, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from PIL import Image
+from torchvision.transforms import v2
+
+app = FastAPI()
 
 origins = [
     "https://sakshambedi.github.io",  # Your GitHub Pages URL
@@ -74,11 +75,10 @@ class AlexNet(nn.Module):
         logits = self.classifier(x)
         return logits
 
+
 # Load the model
 model = AlexNet(num_classes=10)
-model.load_state_dict(
-    torch.load("AlexNet_Param.pth", map_location=torch.device("cpu"))
-)
+model.load_state_dict(torch.load("AlexNet_Param.pth", map_location=torch.device("cpu")))
 model.eval()
 
 
@@ -99,11 +99,13 @@ def transform_image(image_bytes):
     image = Image.open(io.BytesIO(image_bytes))
     return transformer(image).unsqueeze(0)
 
+
 def get_prediction(image_bytes):
     tensor = transform_image(image_bytes=image_bytes)
     outputs = model(tensor)
     _, predicted = torch.max(outputs.data, 1)
     return predicted.item()
+
 
 @app.get("/")
 def api_root():
@@ -115,4 +117,3 @@ async def predict(file: UploadFile = File(...)):
     img_bytes = await file.read()
     class_id = get_prediction(img_bytes)
     return JSONResponse(content={"class_id": class_id})
-
