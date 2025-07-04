@@ -11,7 +11,7 @@ from torchvision.transforms import v2
 app = FastAPI()
 
 origins = [
-    "https://sakshambedi.github.io",  # Your GitHub Pages URL
+    "https://sakshambedi.github.io",
     "http://localhost:3000",  # For local development
 ]
 
