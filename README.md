@@ -267,7 +267,7 @@ This project is open source and available under the [MIT License](LICENSE).
 **Saksham Bedi**
 
 - GitHub: [@sakshambedi](https://github.com/sakshambedi)
-- Email: [Your Email]
+- Email: hello@sakshambedi.com
 
 ---
 
