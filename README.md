@@ -1,274 +1,217 @@
-# VortexML - Deep Learning Image Classification Platform
+# VortexML
 
-A full-stack web application for image classification using custom-trained convolutional neural networks. Built with React frontend, FastAPI backend, and PyTorch for deep learning inference.
+VortexML is a full-stack image classification demo built with a React frontend, a FastAPI backend, and a custom AlexNet checkpoint trained on CIFAR-10. The project is set up to let you run the UI locally, upload an image, and inspect the prediction flow end to end.
 
-## 🚀 Live Demo
+## Live Links
 
-- **Frontend**: [https://sakshambedi.github.io/VortexML](https://sakshambedi.github.io/VortexML)
-- **API Documentation**: Available when running the backend locally
+- Frontend demo: [https://sakshambedi.github.io/VortexML](https://sakshambedi.github.io/VortexML)
+- Local frontend: `http://localhost:3000/VortexML`
+- Local API docs: `http://localhost:8000/docs`
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
+- [Visual Tour](#visual-tour)
 - [Features](#features)
 - [Tech Stack](#tech-stack)
-- [Architecture](#architecture)
-- [Installation](#installation)
-- [Usage](#usage)
-- [API Documentation](#api-documentation)
-- [Model Information](#model-information)
-- [Docker Deployment](#docker-deployment)
+- [Repository Layout](#repository-layout)
+- [Local Development](#local-development)
+- [API Reference](#api-reference)
+- [Model Notes](#model-notes)
+- [Docker](#docker)
 - [Contributing](#contributing)
 
-## 🎯 Overview
+## Overview
 
-VortexML is a comprehensive machine learning platform that demonstrates the end-to-end deployment of deep learning models for image classification. The project showcases a production-ready implementation of AlexNet trained on the CIFAR-10 dataset, featuring a modern React frontend and robust FastAPI backend with Docker containerization.
+The current project ships one end-to-end inference path: AlexNet on CIFAR-10. The frontend exposes a model playground, image upload, and prediction panel, while the backend handles preprocessing, inference, and the `/predict` API.
 
-### Key Achievements
+If you are running the app locally, the expected flow is:
 
-- **Custom AlexNet Implementation**: Built from scratch using PyTorch with 60M parameters
-- **Production-Ready Deployment**: Containerized with Docker for scalable deployment
-- **Modern Web Interface**: Responsive React frontend with intuitive model selection
-- **RESTful API**: FastAPI backend with automatic OpenAPI documentation
-- **Cross-Platform Compatibility**: Supports multiple deployment environments
+1. Start the FastAPI backend on port `8000`.
+2. Start the React frontend on port `3000`.
+3. Open `http://localhost:3000/VortexML`.
+4. Choose a model, upload an image, and press `Go`.
 
-## ✨ Features
+## Visual Tour
 
-### 🖼️ Image Classification
+### End-to-End Inference Flow
 
-- Upload images for real-time classification
-- Support for 10 CIFAR-10 classes: Airplane, Automobile, Bird, Cat, Deer, Dog, Frog, Horse, Ship, Truck
-- Preprocessing pipeline with normalization and resizing
+The GIF below shows the full local interaction: open the playground, select `AlexNet`, choose an image, submit it, and view the predicted class.
 
-### 🔧 Technical Features
+![Full user interaction walkthrough from model selection to prediction result](docs/assets/vortexml-inference-flow.gif)
 
-- **Real-time Inference**: Fast model predictions with PyTorch
-- **CORS Enabled**: Cross-origin resource sharing for web deployment
-- **Error Handling**: Comprehensive error handling and validation
-- **Containerized Deployment**: Docker support for easy deployment
-- **API Documentation**: Auto-generated OpenAPI/Swagger documentation
+### Application Overview
 
-### 🎨 User Interface
+![Overview of the VortexML local app](docs/assets/vortexml-overview.png)
 
-- Clean, modern React interface
-- Model selection component
-- Drag-and-drop image upload
-- Real-time prediction results
-- Responsive design for mobile and desktop
+### Prediction Result
 
-## 🛠️ Tech Stack
+![Prediction result shown in the VortexML playground](docs/assets/vortexml-prediction-result.png)
+
+### FastAPI Swagger Docs
+
+![Swagger UI for the VortexML backend](docs/assets/vortexml-api-docs.png)
+
+## Features
+
+- Upload an image and send it to the backend for classification.
+- Run local inference against a trained AlexNet checkpoint.
+- Inspect the backend with FastAPI's built-in Swagger UI.
+- Deploy the frontend to GitHub Pages and the backend with Docker.
+
+Current implementation note:
+AlexNet is the only model wired through the backend today. The `VGG-19` button is present in the UI, but it does not connect to a separate inference path yet.
+
+## Tech Stack
 
 ### Frontend
 
-- **React 18.3.1**: Modern JavaScript framework
-- **CSS3**: Custom styling with responsive design
-- **GitHub Pages**: Static site hosting
+- React 18
+- CSS modules and component-scoped styles
+- Create React App build pipeline
 
 ### Backend
 
-- **FastAPI**: Modern, fast Python web framework
-- **PyTorch**: Deep learning framework for model inference
-- **Uvicorn**: ASGI server for production deployment
-- **Pillow**: Image processing library
+- FastAPI
+- PyTorch
+- Torchvision transforms
+- Pillow
 
-### DevOps & Deployment
+### Deployment
 
-- **Docker**: Containerization platform
-- **GitHub Actions**: CI/CD pipeline
-- **GitHub Pages**: Frontend deployment
+- GitHub Pages for the frontend
+- Docker for the backend
 
-### Development Tools
+## Repository Layout
 
-- **Python 3.12**: Backend runtime
-- **Node.js**: Frontend build tools
-- **npm**: Package management
-
-## 🏗️ Architecture
-
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│ React Frontend  │    │ FastAPI Backend │    │  PyTorch Model  │
-│                 │    │                 │    │                 │
-│  - Image Upload │────│  - REST API     │────│  - AlexNet CNN  │
-│  - UI Components│    │  - CORS Handling│    │  - CIFAR-10     │
-│  - State Mgmt   │    │  - Validation   │    │  - Inference    │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-         │                        │                        │
-         │                        │                        │
-    ┌─────────┐              ┌─────────┐              ┌─────────┐
-    │ GitHub  │              │ Docker  │              │ Model   │
-    │ Pages   │              │Container│              │ Weights │
-    └─────────┘              └─────────┘              └─────────┘
+```text
+.
+|-- back-end/
+|   |-- server.py
+|   |-- requirements.txt
+|   `-- AlexNet_Param.pth
+|-- docs/
+|   `-- assets/
+|-- output/
+|   `-- playwright/
+`-- vortex-ml-frontend/
+    |-- src/
+    |-- public/
+    `-- package.json
 ```
 
-## 🚀 Installation
+## Local Development
 
 ### Prerequisites
 
 - Python 3.12+
 - Node.js 16+
-- Docker (optional, for containerized deployment)
+- npm
 
-### Backend Setup
+### 1. Start the backend
 
 ```bash
 cd back-end
+python -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
+uvicorn server:app --host 127.0.0.1 --port 8000 --reload
 ```
 
-### Frontend Setup
+The model checkpoint must be available at `back-end/AlexNet_Param.pth`.
+
+### 2. Start the frontend
 
 ```bash
 cd vortex-ml-frontend
 npm install
-```
-
-### Model Files
-
-Ensure `AlexNet_Param.pth` is placed in the `back-end/` directory.
-
-## 💻 Usage
-
-### Running Locally
-
-#### Backend
-
-```bash
-cd back-end
-uvicorn server:app --host 0.0.0.0 --port 8000 --reload
-```
-
-#### Frontend
-
-```bash
-cd vortex-ml-frontend
 npm start
 ```
 
-### API Testing
+The frontend uses the API endpoint from `.env`:
 
 ```bash
-# Test prediction endpoint
+REACT_APP_VORTEXML_API_ENDPOINT=http://localhost:8000/predict
+```
+
+### 3. Open the app
+
+Visit `http://localhost:3000/VortexML` and run a prediction from the playground.
+
+## API Reference
+
+### `POST /predict`
+
+Uploads an image and returns the predicted CIFAR-10 class id.
+
+Request:
+
+```bash
 curl -X POST "http://localhost:8000/predict" \
   -H "accept: application/json" \
   -H "Content-Type: multipart/form-data" \
   -F "file=@your_image.jpg"
 ```
 
-## 📖 API Documentation
-
-### Endpoints
-
-#### `POST /predict`
-
-Upload an image for classification.
-
-**Parameters:**
-
-- `file`: Image file (multipart/form-data)
-
-**Response:**
+Response:
 
 ```json
 {
-  "class_id": 3
+  "class_id": 9
 }
 ```
 
-**Class Mapping:**
+### `GET /`
 
-- 0: Airplane
-- 1: Automobile
-- 2: Bird
-- 3: Cat
-- 4: Deer
-- 5: Dog
-- 6: Frog
-- 7: Horse
-- 8: Ship
-- 9: Truck
+Basic root endpoint used during local verification.
 
-#### `GET /`
+### Class Mapping
 
-Health check endpoint.
+- `0`: airplane
+- `1`: automobile
+- `2`: bird
+- `3`: cat
+- `4`: deer
+- `5`: dog
+- `6`: frog
+- `7`: horse
+- `8`: ship
+- `9`: truck
 
-### Interactive Documentation
+Interactive API docs are available at `http://localhost:8000/docs`.
 
-When running locally, visit `http://localhost:8000/docs` for interactive API documentation.
+## Model Notes
 
-## 🧠 Model Information
+- Architecture: AlexNet
+- Parameters: about 60 million
+- Input pipeline: resize to `70x70`, center crop to `64x64`, normalize with CIFAR-10 statistics
+- Dataset: CIFAR-10
+- Classes: airplane, automobile, bird, cat, deer, dog, frog, horse, ship, truck
 
-### AlexNet Architecture
+## Docker
 
-- **Input Size**: 64×64×3 (RGB images)
-- **Parameters**: ~60 million
-- **Layers**: 5 convolutional + 3 fully connected
-- **Activation**: ReLU
-- **Regularization**: Dropout (0.5)
-
-### Training Details
-
-- **Dataset**: CIFAR-10 (60,000 32×32 color images)
-- **Classes**: 10 categories
-- **Preprocessing**: Resize to 70×70, center crop to 64×64, normalization
-- **Framework**: PyTorch
-
-### Performance
-
-- Trained on CIFAR-10 dataset
-- Real-time inference capability
-- CPU-optimized for deployment
-
-## 🐳 Docker Deployment
-
-### Build Image
+Build the backend image:
 
 ```bash
 cd back-end
 docker build -t vortexml-backend .
 ```
 
-### Run Container
+Run the container:
 
 ```bash
 docker run --name vortexml-api -p 8000:8000 vortexml-backend
 ```
 
-### Expected Output
+After startup, open `http://localhost:8000/docs`.
 
-```
-INFO: Uvicorn running on http://0.0.0.0:8000
-```
+## Contributing
 
-### Testing Docker Deployment
+1. Fork the repository.
+2. Create a feature branch.
+3. Make your changes.
+4. Open a pull request.
 
-- Web Interface: `http://localhost:8000/docs`
-- API Testing: Use curl commands as shown above
+## License
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🔗 Links
-
-- **Live Demo**: [https://sakshambedi.github.io/VortexML](https://sakshambedi.github.io/VortexML)
-- **GitHub Repository**: [https://github.com/sakshambedi/VortexML](https://github.com/sakshambedi/VortexML)
-
-## 👨‍💻 Author
-
-**Saksham Bedi**
-
-- GitHub: [@sakshambedi](https://github.com/sakshambedi)
-- Email: hello@sakshambedi.com
-
----
-
-_Built with ❤️ using React, FastAPI, and PyTorch_
+No license file is currently checked into the repository.
