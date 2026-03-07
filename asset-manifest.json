@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/VortexML/static/css/main.9e77bb2b.css",
-    "main.js": "/VortexML/static/js/main.d1fc10b9.js",
-    "static/js/453.34c089e0.chunk.js": "/VortexML/static/js/453.34c089e0.chunk.js",
+    "main.js": "/VortexML/static/js/main.77602ce9.js",
+    "static/js/453.3eaa49d8.chunk.js": "/VortexML/static/js/453.3eaa49d8.chunk.js",
     "static/media/user-profile-icon.svg": "/VortexML/static/media/user-profile-icon.b928178ee066f9feb1817f2390001cd9.svg",
     "static/media/upload-icon.svg": "/VortexML/static/media/upload-icon.9cef9d69e15e4343e18bf88dc117f4da.svg",
     "index.html": "/VortexML/index.html",
     "main.9e77bb2b.css.map": "/VortexML/static/css/main.9e77bb2b.css.map",
-    "main.d1fc10b9.js.map": "/VortexML/static/js/main.d1fc10b9.js.map",
-    "453.34c089e0.chunk.js.map": "/VortexML/static/js/453.34c089e0.chunk.js.map"
+    "main.77602ce9.js.map": "/VortexML/static/js/main.77602ce9.js.map",
+    "453.3eaa49d8.chunk.js.map": "/VortexML/static/js/453.3eaa49d8.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9e77bb2b.css",
-    "static/js/main.d1fc10b9.js"
+    "static/js/main.77602ce9.js"
   ]
 }
