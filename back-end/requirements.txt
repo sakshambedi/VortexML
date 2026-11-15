@@ -8,6 +8,7 @@ numpy
 matplotlib
 fastapi 
 uvicorn
+python-multipart  # required by FastAPI to parse the /predict file upload
 pillow
 
 # Probably dont need the jupyter for deployment
