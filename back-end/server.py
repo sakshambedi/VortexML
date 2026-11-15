@@ -1,24 +1,35 @@
 import io
+import os
 
 import torch
 import torch.nn as nn
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from PIL import Image
+from PIL import Image, UnidentifiedImageError
 from torchvision.transforms import v2
 
 app = FastAPI()
 
-origins = [
+# Origins allowed to call the API from a browser when ALLOWED_ORIGINS is unset:
+# the GitHub Pages front end and the local development server.
+DEFAULT_ALLOWED_ORIGINS = [
     "https://sakshambedi.github.io",
-    "http://localhost:3000",  # For local development
+    "http://localhost:3000",
 ]
+
+
+def get_allowed_origins():
+    """Read a comma-separated origin list from ALLOWED_ORIGINS, or use the defaults."""
+    raw = os.environ.get("ALLOWED_ORIGINS", "")
+    origins = [origin.strip().rstrip("/") for origin in raw.split(",") if origin.strip()]
+    return origins or list(DEFAULT_ALLOWED_ORIGINS)
+
 
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins
+    allow_origins=get_allowed_origins(),
     allow_credentials=True,
     allow_methods=["*"],  # Allow all methods
     allow_headers=["*"],  # Allow all headers
@@ -115,5 +126,8 @@ def api_root():
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
     img_bytes = await file.read()
-    class_id = get_prediction(img_bytes)
+    try:
+        class_id = get_prediction(img_bytes)
+    except UnidentifiedImageError:
+        raise HTTPException(status_code=400, detail="The uploaded file is not a readable image.")
     return JSONResponse(content={"class_id": class_id})
