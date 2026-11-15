@@ -33,6 +33,13 @@ select-model{
     background-color: #e0e0e0;
   }
 
+  .model-button:disabled,
+  .model-button:disabled:hover {
+    background-color: #f3f3f3;
+    color: #999;
+    cursor: not-allowed;
+  }
+
   .model-button.selected {
     background-color: #007bff;
     color: white;

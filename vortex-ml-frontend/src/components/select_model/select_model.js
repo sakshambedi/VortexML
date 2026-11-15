@@ -22,11 +22,13 @@ export const SelectModel = () => {
                 >
                     AlexNet
                 </button>
+                {/* The back end only serves AlexNet, so VGG-19 cannot be selected. */}
                 <button
-                    className={`model-button ${selectedButton === 'VGG-19' ? 'selected' : ''}`}
-                    onClick={() => handleButtonClick('VGG-19')}
+                    className="model-button"
+                    disabled
+                    title="VGG-19 is not available: the back end only serves AlexNet"
                 >
-                    VGG-19
+                    VGG-19 (not available)
                 </button>
 
             </div>
