@@ -4,7 +4,7 @@ VortexML is a full-stack image classification demo built with a React frontend, 
 
 ## Live Links
 
-- Frontend demo: [https://sakshambedi.github.io/VortexML](https://sakshambedi.github.io/VortexML)
+- Frontend demo: [https://sakshambedi.github.io/VortexML](https://sakshambedi.github.io/VortexML) (front end only; predictions need a running back end, see [Deployment](#deployment))
 - Local frontend: `http://localhost:3000/VortexML`
 - Local API docs: `http://localhost:8000/docs`
 
@@ -19,6 +19,8 @@ VortexML is a full-stack image classification demo built with a React frontend, 
 - [API Reference](#api-reference)
 - [Model Notes](#model-notes)
 - [Docker](#docker)
+- [Deployment](#deployment)
+- [Tests](#tests)
 - [Contributing](#contributing)
 
 ## Overview
@@ -57,10 +59,11 @@ The GIF below shows the full local interaction: open the playground, select `Ale
 - Upload an image and send it to the backend for classification.
 - Run local inference against a trained AlexNet checkpoint.
 - Inspect the backend with FastAPI's built-in Swagger UI.
-- Deploy the frontend to GitHub Pages and the backend with Docker.
+- Publish the frontend to GitHub Pages with a GitHub Actions workflow.
+- Package the backend as a Docker image (built and hosted manually).
 
 Current implementation note:
-AlexNet is the only model wired through the backend today. The `VGG-19` button is present in the UI, but it does not connect to a separate inference path yet.
+AlexNet is the only model wired through the backend today. The `VGG-19` button is shown in the UI as disabled and labelled "not available".
 
 ## Tech Stack
 
@@ -79,8 +82,8 @@ AlexNet is the only model wired through the backend today. The `VGG-19` button i
 
 ### Deployment
 
-- GitHub Pages for the frontend
-- Docker for the backend
+- GitHub Pages for the frontend, published by `.github/workflows/deployment.yml`
+- Docker for the backend, built and run by hand; no workflow deploys it
 
 ## Repository Layout
 
@@ -88,12 +91,12 @@ AlexNet is the only model wired through the backend today. The `VGG-19` button i
 .
 |-- back-end/
 |   |-- server.py
+|   |-- test_server.py
 |   |-- requirements.txt
-|   `-- AlexNet_Param.pth
+|   |-- requirements-dev.txt
+|   `-- AlexNet_Param.pth      (not in the repository; supply your own copy)
 |-- docs/
 |   `-- assets/
-|-- output/
-|   `-- playwright/
 `-- vortex-ml-frontend/
     |-- src/
     |-- public/
@@ -118,7 +121,13 @@ pip install -r requirements.txt
 uvicorn server:app --host 127.0.0.1 --port 8000 --reload
 ```
 
-The model checkpoint must be available at `back-end/AlexNet_Param.pth`.
+The model checkpoint must be available at `back-end/AlexNet_Param.pth`. It is not checked into the repository (it is git-ignored), and the server will not start without it.
+
+Browsers may call the API only from the origins in the `ALLOWED_ORIGINS` environment variable, a comma-separated list. When it is unset the defaults are `https://sakshambedi.github.io` and `http://localhost:3000`:
+
+```bash
+ALLOWED_ORIGINS="https://example.com,http://localhost:3000" uvicorn server:app --port 8000
+```
 
 ### 2. Start the frontend
 
@@ -161,6 +170,8 @@ Response:
 }
 ```
 
+Errors: `422` if the `file` field is missing, `400` if the upload cannot be read as an image.
+
 ### `GET /`
 
 Basic root endpoint used during local verification.
@@ -190,20 +201,44 @@ Interactive API docs are available at `http://localhost:8000/docs`.
 
 ## Docker
 
-Build the backend image:
+Build the backend image. `back-end/AlexNet_Param.pth` must exist first, because the image copies it in:
 
 ```bash
 cd back-end
 docker build -t vortexml-backend .
 ```
 
-Run the container:
+Run the container (add `-e ALLOWED_ORIGINS=...` to change the allowed browser origins):
 
 ```bash
 docker run --name vortexml-api -p 8000:8000 vortexml-backend
 ```
 
 After startup, open `http://localhost:8000/docs`.
+
+## Deployment
+
+The only automation in this repository is `.github/workflows/deployment.yml`. On a push to `master` it builds the React app and publishes it to GitHub Pages. It does not build, test or deploy the backend or the model.
+
+The backend has to be hosted separately (for example by running the Docker image above on a server). The Pages build reads the backend URL from the `REACT_APP_VORTEXML_API_ENDPOINT` repository secret, so the hosted demo can return predictions only while a backend is running at that URL, and that backend must list the Pages origin in `ALLOWED_ORIGINS` (it is in the defaults).
+
+## Tests
+
+Backend (no model checkpoint needed; the tests replace the checkpoint load, so they cover request validation, preprocessing and CORS but not prediction accuracy):
+
+```bash
+cd back-end
+pip install -r requirements.txt -r requirements-dev.txt
+pytest
+```
+
+Frontend:
+
+```bash
+cd vortex-ml-frontend
+npm install
+npm test
+```
 
 ## Contributing
 
